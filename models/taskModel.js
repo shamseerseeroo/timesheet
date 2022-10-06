@@ -8,15 +8,13 @@ var taskSchema = new Schema(
     name: {
       type: 'string',
     },
-    date: {
-      type: new Date
-    },
+    date: { type: Date, default: Date.now },
     activestatus: {
       type: Boolean,
       default: false
     },
     assigne : {
-        type:mongoose.Types.ObjectId,
+        type:mongoose.Types.ObjectId
 
     },
     taskstatus: {

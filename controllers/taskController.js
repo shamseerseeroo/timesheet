@@ -1,18 +1,18 @@
 require('express-async-errors');
 const dotenv = require('dotenv');
-const Project = require('../models/projectModel');
+const Task = require('../models/taskModel');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
-const projectModel = require('../models/projectModel');
+
 
 exports.create=(req,res,next)=>{
     console.log("hii")
     console.log(req.body);
-    var project = new Project()
-    project.name= req.body.name;
-    project.activestatus = req.body.activestatus;
-    project.assign = req.body.assign
-    project.save((err)=>{
+    var task = new Task()
+    task.name= req.body.name;
+    task.activestatus = req.body.activestatus;
+    task.assigne = req.body.assigne
+    task.save((err)=>{
         if (err) {
             res.json({
               status: "error",
@@ -27,10 +27,10 @@ exports.create=(req,res,next)=>{
           }
     })
 }
-exports.deleteproject = async (req, res, next) => {
+exports.deletetask = async (req, res, next) => {
      console.log("delete");
     console.log(req.params.id)
-    const data = await Project.findById(req.params.id, function (err, ditItem) {
+    const data = await Task.findById(req.params.id, function (err, ditItem) {
       if (!ditItem) {
         res.json({
           status: "error",
@@ -63,8 +63,8 @@ exports.deleteproject = async (req, res, next) => {
       });
     })
   }
-  exports.updateproject = async (req, res, next) => {
-    Project.findById(req.params.id, (err, updateItem) => {
+  exports.updatetask = async (req, res, next) => {
+    Task.findById(req.params.id, (err, updateItem) => {
     if (err) {
       res.json({
         status: "error",
@@ -97,8 +97,8 @@ exports.deleteproject = async (req, res, next) => {
   }
   )
 }
-exports.getproject = async (req, res, next) => {
-  const data = await Project.find((err, result) => {
+exports.gettask = async (req, res, next) => {
+  const data = await Task.find((err, result) => {
     console.log(result);
     if (result) {
       // const response = {
@@ -106,7 +106,7 @@ exports.getproject = async (req, res, next) => {
       // };
       res.json({
         status: "success",
-        message: 'project details loading..',
+        message: 'task details loading..',
         data: result
       });
 

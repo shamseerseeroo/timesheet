@@ -9,6 +9,7 @@ router.get('/', (req, res) => {
   router.use("/signup",require('./signup.routes'));
   router.use("/user",require('./user.routes'));
   router.use("/project",require('./project.routes'));
+  router.use("/task",require('./task.routes'));
 
   // router.use((err, req, res) => {
   //   if (err)
