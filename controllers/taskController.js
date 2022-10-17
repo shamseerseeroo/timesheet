@@ -21,7 +21,7 @@ exports.create=(req,res,next)=>{
           } else {
             res.json({
               status: "success",
-              message: 'project created Successfully',
+              message: 'task created Successfully',
               // data: updateItem
             });
           }
@@ -31,6 +31,7 @@ exports.deletetask = async (req, res, next) => {
      console.log("delete");
     console.log(req.params.id)
     const data = await Task.findById(req.params.id, function (err, ditItem) {
+      console.log(ditItem)
       if (!ditItem) {
         res.json({
           status: "error",
@@ -71,9 +72,9 @@ exports.deletetask = async (req, res, next) => {
         message: err,
       });
     } else {
-        updateItem.name= req.body.Name,
-        updateItem.activeststaus= req.body.Email,
-        updateItem.assign= req.body.phonenumber,
+        updateItem.name= req.body.name,
+        updateItem.activeststaus= req.body.activeststaus,
+        updateItem.assigne= req.body.assigne,
        
 
       updateItem.save((err) => {
@@ -109,6 +110,7 @@ exports.gettask = async (req, res, next) => {
         message: 'task details loading..',
         data: result
       });
+
 
       // return next();
     } else {

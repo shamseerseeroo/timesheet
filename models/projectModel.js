@@ -14,12 +14,15 @@ var projectSchema = new Schema(
       type: Boolean,
       default: "false"
     },
-    assign: {
-        type: mongoose.Types.ObjectId,
-        
-    },
+    assigne: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      default: null,
+      index: true
+  },
     delstatus: {
-        type: Boolean
+        type: Boolean,
+        default: false
     }
     
       

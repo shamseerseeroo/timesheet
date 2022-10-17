@@ -13,22 +13,28 @@ var taskSchema = new Schema(
       type: Boolean,
       default: false
     },
-    assigne : {
-        type:mongoose.Types.ObjectId
-
-    },
+ 
+    assigne: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      default: null,
+      index: true
+  },
+    
     taskstatus: {
         type: Boolean,
         default: false
+    },
+    delstatus: {
+      type: Boolean,
+      default: false
     }
     
       
   
   
-  },
-  {
-    timestamps: true,
   }
+ 
 );
 
 

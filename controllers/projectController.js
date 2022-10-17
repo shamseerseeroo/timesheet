@@ -11,7 +11,7 @@ exports.create=(req,res,next)=>{
     var project = new Project()
     project.name= req.body.name;
     project.activestatus = req.body.activestatus;
-    project.assign = req.body.assign
+    project.assigne = req.body.assigne
     project.save((err)=>{
         if (err) {
             res.json({
@@ -71,9 +71,9 @@ exports.deleteproject = async (req, res, next) => {
         message: err,
       });
     } else {
-        updateItem.name= req.body.Name,
-        updateItem.activeststaus= req.body.Email,
-        updateItem.assign= req.body.phonenumber,
+        updateItem.name= req.body.name,
+        updateItem.activeststaus= req.body.activeststaus,
+        updateItem.assigne= req.body.assigne,
        
 
       updateItem.save((err) => {

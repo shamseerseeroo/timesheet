@@ -19,7 +19,8 @@ var userSchema = new Schema(
       default: false
     },
     role: {
-        type: 'string'
+        type: 'string',
+        default: 'user'
     }
     
       
