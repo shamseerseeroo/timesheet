@@ -15,10 +15,7 @@ var projectSchema = new Schema(
       default: "false"
     },
     assigne: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
-      default: null,
-      index: true
+      type: 'string'
   },
     delstatus: {
         type: Boolean,

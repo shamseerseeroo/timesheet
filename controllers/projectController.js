@@ -100,22 +100,38 @@ exports.deleteproject = async (req, res, next) => {
 exports.getproject = async (req, res, next) => {
   const data = await Project.find((err, result) => {
     console.log(result);
-    if (result) {
-      // const response = {
-      //   data: result,
-      // };
+    
+    if (err) {
+      console.log("error")
+      res.json({        status: "error",
+        message: err,
+      });
+    } else {
+      if(result){
+      console.log("success");
       res.json({
         status: "success",
         message: 'project details loading..',
         data: result
       });
-
-      // return next();
-    } else {
-      res.json({
-        status: "error",
-        message: err,
-      });
     }
+    }
+    // if (result) {
+    //   // const response = {
+    //   //   data: result,
+    //   // };
+    //   res.json({
+    //     status: "success",
+    //     message: 'project details loading..',
+    //     data: result
+    //   });
+
+    //   // return next();
+    // } else {
+    //   res.json({
+    //     status: "error",
+    //     message: err,
+    //   });
+    // }
   })
 }
