@@ -13,12 +13,8 @@ var taskSchema = new Schema(
       type: Boolean,
       default: false
     },
- 
     assigne: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
-      default: null,
-      index: true
+      type: 'string'
   },
     
     taskstatus: {

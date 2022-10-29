@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
 
 
-exports.create=(req,res,next)=>{
+exports.create=(req,res)=>{
     console.log("hii")
     console.log(req.body);
     var project = new Project()
@@ -13,18 +13,20 @@ exports.create=(req,res,next)=>{
     project.activestatus = req.body.activestatus;
     project.assigne = req.body.assigne
     project.save((err)=>{
-        if (err) {
-            res.json({
+      console.log(project)
+      if (err) {
+          console.log(err)
+          res.json({
               status: "error",
               message: err,
-            });
-          } else {
-            res.json({
+          });
+      } else {
+          res.json({
               status: "success",
-              message: 'project created Successfully',
-              // data: updateItem
-            });
-          }
+              message: 'Successfully Created',
+              data: project
+          });
+      }
     })
 }
 exports.deleteproject = function (req, res) {
