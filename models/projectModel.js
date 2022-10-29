@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var { Schema } = mongoose;
 
 
-var slugs = require('mongoose-url-slugs');
+
 
 var projectSchema = new Schema(
   {
@@ -25,9 +25,6 @@ var projectSchema = new Schema(
       
   
   
-  },
-  {
-    timestamps: true,
   }
 );
 

@@ -27,43 +27,44 @@ exports.create=(req,res,next)=>{
           }
     })
 }
-exports.deletetask = async (req, res, next) => {
-     console.log("delete");
-    console.log(req.params.id)
-    const data = await Task.findById(req.params.id, function (err, ditItem) {
-      console.log(ditItem)
-      if (!ditItem) {
-        res.json({
-          status: "error",
-          message: "no record find with the given id"
-        });
+exports.deletetask = function (req, res) {
+  Task.findById(req.params.id, function (err, result) {
+    console.log(result);
+      if (!result) {
+          res.json({
+              status: "error",
+              message: "no record find with the given id"
+          });
       }
-  
+
       if (err) {
-        res.json({
-          status: "error",
-          message: err
-        });
+          res.json({
+              status: "error",
+              message: err
+          });
       }
-      ditItem.delstatus = true;
-      ditItem.save(function (err) {
-  
-        if (err) {
+      result.delstatus = true;
+      result.save(function (err) {
+
+          if (err) {
+              res.json({
+                  status: "error",
+                  message: err
+              });
+          }
+
           res.json({
-            status: "error",
-            message: err
+              status: "success",
+              message: 'Deleted Successfully',
+              data: result
           });
-        } else {
-          res.json({
-            status: "success",
-            message: 'Deleted Successfully',
-            data: ditItem
-          });
-        }
-  
+
       });
-    })
-  }
+
+
+  });
+
+};
   exports.updatetask = async (req, res, next) => {
     Task.findById(req.params.id, (err, updateItem) => {
     if (err) {
@@ -98,26 +99,21 @@ exports.deletetask = async (req, res, next) => {
   }
   )
 }
-exports.gettask = async (req, res, next) => {
-  const data = await Task.find((err, result) => {
-    console.log(result);
-    if (result) {
-      // const response = {
-      //   data: result,
-      // };
-      res.json({
-        status: "success",
-        message: 'task details loading..',
-        data: result
-      });
-
-
-      // return next();
-    } else {
-      res.json({
-        status: "error",
-        message: err,
-      });
-    }
-  })
-}
+exports.gettask = (req, res) => {
+  Task.find({
+          delstatus: false
+      })
+      .then(function (list) {
+          res.json({
+              status: "success",
+              message: "task retrieved successfully",
+              data: list
+          });
+      })
+      .catch((err) => {
+          res.json({
+              status: "error",
+              message: err,
+          });
+      })
+}  

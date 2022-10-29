@@ -3,7 +3,7 @@ const dotenv = require('dotenv');
 const Project = require('../models/projectModel');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
-const projectModel = require('../models/projectModel');
+
 
 exports.create=(req,res,next)=>{
     console.log("hii")
@@ -27,42 +27,44 @@ exports.create=(req,res,next)=>{
           }
     })
 }
-exports.deleteproject = async (req, res, next) => {
-     console.log("delete");
-    console.log(req.params.id)
-    const data = await Project.findById(req.params.id, function (err, ditItem) {
-      if (!ditItem) {
-        res.json({
-          status: "error",
-          message: "no record find with the given id"
-        });
+exports.deleteproject = function (req, res) {
+  Project.findById(req.params.id, function (err, result) {
+    console.log(result);
+      if (!result) {
+          res.json({
+              status: "error",
+              message: "no record find with the given id"
+          });
       }
-  
+
       if (err) {
-        res.json({
-          status: "error",
-          message: err
-        });
+          res.json({
+              status: "error",
+              message: err
+          });
       }
-      ditItem.delstatus = true;
-      ditItem.save(function (err) {
-  
-        if (err) {
+      result.delstatus = true;
+      result.save(function (err) {
+
+          if (err) {
+              res.json({
+                  status: "error",
+                  message: err
+              });
+          }
+
           res.json({
-            status: "error",
-            message: err
+              status: "success",
+              message: 'Deleted Successfully',
+              data: result
           });
-        } else {
-          res.json({
-            status: "success",
-            message: 'Deleted Successfully',
-            data: ditItem
-          });
-        }
-  
+
       });
-    })
-  }
+
+
+  });
+
+};
   exports.updateproject = async (req, res, next) => {
     Project.findById(req.params.id, (err, updateItem) => {
     if (err) {
@@ -97,41 +99,25 @@ exports.deleteproject = async (req, res, next) => {
   }
   )
 }
-exports.getproject = async (req, res, next) => {
-  const data = await Project.find((err, result) => {
-    console.log(result);
     
-    if (err) {
-      console.log("error")
-      res.json({        status: "error",
-        message: err,
-      });
-    } else {
-      if(result){
-      console.log("success");
-      res.json({
-        status: "success",
-        message: 'project details loading..',
-        data: result
-      });
-    }
-    }
-    // if (result) {
-    //   // const response = {
-    //   //   data: result,
-    //   // };
-    //   res.json({
-    //     status: "success",
-    //     message: 'project details loading..',
-    //     data: result
-    //   });
+ 
 
-    //   // return next();
-    // } else {
-    //   res.json({
-    //     status: "error",
-    //     message: err,
-    //   });
-    // }
-  })
-}
+    exports.getproject = (req, res) => {
+      Project.find({
+              delstatus: false
+          })
+          .then(function (list) {
+              res.json({
+                  status: "success",
+                  message: "project retrieved successfully",
+                  data: list
+              });
+          })
+          .catch((err) => {
+              res.json({
+                  status: "error",
+                  message: err,
+              });
+          })
+  }  
+  
