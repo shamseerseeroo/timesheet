@@ -8,7 +8,7 @@ const projectController = require('../controllers/projectController');
 router.post('/', projectController.create);
 // router.post('/', signinController.updateData);
 router.delete('/:id', projectController.deleteproject);
-router.post('/:id', projectController.updateproject);
+router.put('/:id', projectController.updateproject);
 router.get('/', projectController.getproject);
 
 
