@@ -38,6 +38,7 @@ exports.rolechange=async(req,res,next)=>{
     
     });
 }
+
 exports.getuser = async (req, res, next) => {
     const data = await User.find((err, result) => {
       console.log(result);
@@ -60,4 +61,25 @@ exports.getuser = async (req, res, next) => {
       }
     })
   }
+
+
+  exports.getuserbyId = function (req, res) {
+    User.findById(
+      req.params.id,
+      function (err, config) {
+        if (err) {
+          res.json({
+            status: "error",
+            message: err,
+          });
+        } else {
+          res.json({
+            status: "success",
+            message: "Configuration Report details loading..",
+            data: config,
+          });
+        }
+      }
+    );
+  };
 
